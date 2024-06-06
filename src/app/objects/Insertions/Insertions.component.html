@@ -1,0 +1,110 @@
+<div class="row  text-right">
+    <div class="col-sm-3">
+        <div class="card shadow-sm p-3 mb-5 bg-white rounded">
+            <div class="card-body">
+                <h5 class="card-title">הכנסה חדשה</h5>
+                <form (ngSubmit)="onSubmitForm()" #signupForm="ngForm" dir="rtl">
+                    <div class="form-group">
+                        <label for="Description">תיאור ההכנסה </label>
+                        <input [(ngModel)]="Insertions.Description" name="Description" type="text" class="form-control"
+                            id="Description" aria-describedby="Description" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="Amount">סכום הכנסה </label>
+                        <input [(ngModel)]="Insertions.Amount" name="Amount" type="number" class="form-control"
+                            id="Amount" aria-describedby="Amount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">תאריך הכנסה </label>
+                        <input [(ngModel)]="Insertions.Date1" name="name" type="date" class="form-control" id="date"
+                            aria-describedby="date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tenants">דייר</label>
+                        <select class="custom-select" id="tenants" [(ngModel)]="Insertions.TenantId" required
+                            [ngModelOptions]="{standalone: true}">
+                            <option></option>
+                            <option *ngFor="let t of TenantsList" [ngValue]="t.TenantCode">{{t.FirstName}}</option>
+                        </select>
+                    </div>
+                    <button mat-stroked-button color="accent" type="submit">הוספה</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+<div class="col-sm-6">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-primary" *ngIf="InsertionsList.length == 0" role="status"
+                style="width: 10rem; height: 10rem;">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <div class="alert alert-info" *ngIf="bool">
+            נא למלא פרטים לעדכון!
+            <strong></strong>
+        </div>
+        <div class="card shadow-sm p-3 mb-3 bg-white rounded" *ngIf="InsertionsList.length > 0">
+            <form>
+                <div class="">
+                    <h2 dir="rtl" class="text-center"> תצוגת כל הההכנסות של הבנין</h2>
+                    <label class="sr-only" for="search">חיפוש הכנסה</label>
+                        
+                            <div class="input_d">בחר חודש לתצוגת הכנסות</div>
+                        <input [(ngModel)]="search" id="search" class="text-center form-control form-control-lg"
+                            type="month" placeholder=" בחר חודש לדוח" name="search"><br>
+                </div>
+                <br>
+                <ul class="list-group list-group-flush" *ngFor="let n of InsertionsList | filter2: search" name="divS">
+                    <li class="list-group-item">
+                        <div class="container">
+                            <div class="row">
+                    <li class="col-sm-6">
+                        <span><b>{{n.Description}}</b><br> בסכום <b>{{n.Amount}} ש"ח</b><br> <b> שולם ע"י
+                            </b>{{n.TenantId.LastName}} {{n.TenantId.FirstName}}</span>
+                    </li>
+
+                    <div class="col-sm-3">
+                        <button mat-stroked-button color="accent" (click)="update(n)">לעדכון</button>
+                    </div>
+                    <div class="col-sm-3">
+                        <button mat-fab color="warn" (click)="Delete(n)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+        </div>
+    </div>
+    </li>
+    </ul>
+    </form>
+
+
+
+
+</div>
+</div>
+<div class="col-sm-3" *ngIf="InsertionsList.length > 0">
+    <div class="card shadow-sm p-3 mb-5 bg-white rounded">
+        <div class="card-body">
+            <div style="display: flex;
+            justify-content: space-evenly;">
+                <button mat-stroked-button color="accent">
+                    Dounload
+                    <mat-icon>get_app</mat-icon>
+                </button>
+            </div>
+            <br>
+            <button *ngIf="InsertionsList.length > 0" class="btn btn-warning btn-block" (click)="print()">
+                <mat-icon> local_printshop</mat-icon>
+            </button>
+            <br>
+                      <button *ngIf="InsertionsList.length > 0" class="btn btn-success btn-block" (click)="creatExcel()"><mat-icon>file_copy</mat-icon>Excel</button>
+
+            <br>  <button *ngIf="InsertionsList.length > 0" class="btn btn-warning btn-block" (click)="createPdf()">
+                <mat-icon>picture_as_pdf</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
+</div>

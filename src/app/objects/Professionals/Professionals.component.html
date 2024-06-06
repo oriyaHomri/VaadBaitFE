@@ -1,0 +1,157 @@
+<div class="text-right" style="margin-top: 3%;
+display: flex;
+justify-content: center;    margin-bottom: 3%;">
+  <div class="col-sm">
+    <div class="card shadow-sm p-3 mb-5 bg-white rounded">
+      <div class="card-body">
+        <h5 class="card-title">הוספת בעל מקצוע חדש</h5>
+        <form (ngSubmit)="onSubmitForm()" #signupForm="ngForm" dir="rtl">
+          <div class="form-group">
+            <label for="FirstName">שם פרטי: </label>
+            <input [(ngModel)]="Professional.FirstName" name="FirstName" type="text" class="form-control" id="FirstName"
+              aria-describedby="FirstName" required>
+          </div>
+          <div class="form-group">
+            <label for="name">שם משפחה: </label>
+            <input [(ngModel)]="Professional.LastName" name="name" type="text" class="form-control" id="name"
+              aria-describedby="name" required>
+          </div>
+          <div class="form-group">
+            <label for="date">סוג מקצוע</label>
+            <select class="custom-select" id="typeProfessional" [(ngModel)]="Professional.TypeOfProfessional" required
+              [ngModelOptions]="{standalone: true}">
+              <option></option>
+              <option *ngFor="let t of TypeOfProfessionalsList" [ngValue]="t.IdTypeOfProfessionals">
+                {{t.TypeOfProfessional}}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="EMail">אימייל </label>
+            <input [(ngModel)]="Professional.EMail" name="EMail" type="email" class="form-control" id="EMail"
+              aria-describedby="EMail" required>
+          </div>
+          <div class="form-group">
+            <label for="Address">כתובת</label>&nbsp;
+            <input type="text" [(ngModel)]="Professional.Address" name="Address" class="form-control" id="Address">
+          </div>
+          <div class="form-group">
+            <label for="Phone">מס' טלפון</label>
+            <input [(ngModel)]="Professional.Phone" name="Phone" type="tel" class="form-control" id="Phone"
+              aria-describedby="Phone">
+          </div>
+<button mat-stroked-button color="accent"  type="submit" >הוספה</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <span></span>
+
+  <div class="col-sm-6">
+    <div class="d-flex justify-content-center">
+      <div class="spinner-border text-primary" *ngIf="ProfessionalsList.length == 0" role="status"
+        style="width: 10rem; height: 10rem;">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div class="alert alert-info" *ngIf="bool">
+      נא למלא פרטים לעדכון!
+      <strong></strong>
+    </div>
+    <div class="card shadow-sm p-3 mb-5 bg-white rounded" *ngIf="ProfessionalsList.length > 0">
+      <form>
+        <div >
+          <h2 dir="rtl" class="text-center">כל בעלי המקצוע</h2>
+          <label class="sr-only" for="search">חיפוש בעל מקצוע</label>
+     
+            <input [(ngModel)]="search" id="search" class="text-center form-control form-control-lg"
+              placeholder=" לחיפוש הקלד  מקצוע..." name="search"><br>
+          </div>
+      
+        <br>
+        <ul class="list-group list-group-flush" *ngFor="let n of ProfessionalsList | filter3: search" name="divS">
+          <li class="list-group-item">
+            <div class="container">
+              <div class="row">
+
+          <li class="col card-title" >
+            <span><b>{{n.TypeOfProfessional.TypeOfProfessional}}</b>
+           <br>{{n.LastName}}</span>
+          </li>
+
+          <div class="col-sm-2">
+            <button type="button" class="btn btn-danger btn-block" (click)="update(n)"><mat-icon>cached</mat-icon>
+            </button>
+          </div>
+          <div class="col-sm-2">
+            <button type="button" class="btn btn-warning btn-block" (click)="sendEmailForP(n)"><mat-icon>mail_outline</mat-icon>
+            </button>
+          </div>
+          <div class="col-sm-3">
+            <button type="button" class="btn btn-danger btn-block" *ngIf="n.Mobile!='false'" (click)="Delete(n)">ללא פעיל</button>
+
+            <button type="button" class="btn btn-default btn-block" *ngIf="n.Mobile=='false'" (click)="Delete(n)">לפעיל</button>
+
+          </div>
+    </div>
+  </div>
+  </li>
+  </ul>
+  </form>
+
+</div>
+<form class="form-horizontal" *ngIf="b" #sendEmail="ngForm" (ngSubmit)="sendEmailForPre()">
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="email">נושא</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="email" [(ngModel)]="sendE.massage" placeholder="נושא המייל"
+        aria-describedby="email" name="email" required>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="pwd">הודעה</label>
+    <div class="col-sm-10">
+      <input class="form-control" id="pwd" [(ngModel)]="sendE.sub" aria-describedby="pwd" name="pwd">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button mat-stroked-button color="accent"  type="submit" [disabled]="signupForm.invalid">הוספה</button>
+    </div>
+  </div>
+</form>
+</div>
+<div class="text-right">
+  <div class="col-sm">
+    <div class="card shadow-sm p-3 mb-5 bg-white rounded">
+      <div class="card-body">
+        <h5 class="card-title">הוספת סוג מקצוע </h5>
+        <form (ngSubmit)="onSubmitFormTypeOfProfessionals()" #signupFormtype="ngForm" dir="rtl">
+          <div class="form-group">
+            <label for="TypeOfProfessional">סוג מקצוע </label>
+            <input [(ngModel)]="TypeOfProfessionals.TypeOfProfessional" name="TypeOfProfessional" type="text"
+              class="form-control" id="TypeOfProfessional" aria-describedby="TypeOfProfessional" required>
+          </div>
+          <button mat-stroked-button color="accent"  type="submit">הוספה</button>
+        </form>
+      </div>
+
+    </div>
+    <ul class="list-group list-group-flush" *ngFor="let s of TypeOfProfessionalsList" name="divS">
+      <li class="list-group-item">
+        <div class="container">
+          <div class="row">
+      <li class="col card-title">
+        <span>{{s.TypeOfProfessional}}</span>
+      </li>
+      <div class="col">
+        <!-- <button type="button" class="btn btn-danger btn-block" (click)="DeleteTypeOfProfessionals(s)">מחק</button> -->
+
+      </div>
+  </div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>

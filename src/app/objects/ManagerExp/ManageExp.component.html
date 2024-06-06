@@ -1,0 +1,22 @@
+<!-- <div style="margin-top: 3%;display: flex;justify-content: center;  margin-bottom: 3%;">
+    <chart [type]="type" [data]="data_c" [options]="options" style="width: 500px;height: 500px;">
+    </chart>
+</div>
+<div style="display: flex;flex-direction: column;align-items: center">
+    <p style="color: rgba(255, 99, 132,1); font-size: 200%;"><b> סך כל ההכנסות של הבנין:{{allIn}} </b>
+    </p>
+    <br>
+    <button mat-raised-button color="primary" style="background-color: rgba(255, 99, 132,1);"
+        routerLink="/Insertions">הכנסות</button>
+</div> -->
+<mat-tab-group class="authContainer">
+    <mat-tab label="דיירים" dynamicWidth>
+<app-Tenants></app-Tenants>
+    </mat-tab>
+    <mat-tab label="מומחים" dynamicWidth>
+<app-Professionals></app-Professionals>
+    </mat-tab>
+    <mat-tab label="תקלות" dynamicWidth>
+<app-Frequencies></app-Frequencies>
+    </mat-tab>
+</mat-tab-group>

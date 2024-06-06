@@ -1,0 +1,134 @@
+<div class="row  text-right">
+  <div class="col-sm-3">
+    <div class="card shadow-sm p-3 mb-5 bg-white rounded">
+      <div class="card-body">
+        <h5 class="card-title"> דיוח על הוצאה חדשה</h5>
+        <form (ngSubmit)="onSubmitForm()" #signupForm="ngForm" dir="rtl">
+          <div class="form-group">
+            <label for="Details">פרטי ההוצאה </label>
+            <select class="custom-select" id="FrequencyObject" [(ngModel)]="Expenses.Details" required
+              [ngModelOptions]="{standalone: true}">
+              <option></option>
+              <option *ngFor="let t of FrequencyObjectList" [ngValue]="t.FrequencyObjects">
+                {{t.FrequencyObjects}}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="Amount">סכום הוצאה </label>
+            <input [(ngModel)]="Expenses.Amount" name="Amount" type="number" class="form-control" id="Amount"
+              aria-describedby="Amount" required>
+          </div>
+          <div class="form-group">
+            <label for="date">תאריך הוצאה </label>
+            <input [(ngModel)]="Expenses.Date1" name="name" type="date" class="form-control" id="date"
+              aria-describedby="date" required>
+          </div>
+<button mat-stroked-button color="accent"  type="submit" >הוספה</button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+  <span></span>
+  <div class="col-sm-5">
+    <div class="d-flex justify-content-center">
+      <div class="spinner-border text-primary" *ngIf="ExpensesList.length == 0" role="status"
+        style="width: 10rem; height: 10rem;">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div class="alert alert-info" *ngIf="bool">
+      נא למלא פרטים לעדכון!
+      <strong></strong>
+    </div>
+  <div class="card shadow-sm p-3 mb-5 bg-white rounded" *ngIf="ExpensesList.length > 0">
+    <form>
+      <div class="">
+        <h2 dir="rtl" class="text-center">תצוגת  כל ההוצאות של הבנין</h2>
+        <label class="sr-only" for="search">חיפוש הוצאה</label>
+         
+            <div class="input_d">בחר חודש לתצוגת הוצאות</div>
+          <input [(ngModel)]="search" id="search" class="text-center form-control form-control-lg" type="month"
+            placeholder=" בחר חודש לדוח" name="search"><br>
+      </div>
+      <br>
+      <ul class="list-group list-group-flush" *ngFor="let n of sortData | filter2 : search" name="divS">
+        <li class="list-group-item">
+          <div class="container">
+            <div class="row">
+        <li class="col card-title">
+          <app-show-expenses [expenses]="n"></app-show-expenses>
+        </li>
+        <div class="col">
+          <button type="button" class="btn btn-warning btn-block" (click)="update(n)"><mat-icon>cached</mat-icon>
+          </button>
+        </div>
+        <div class="col">
+          <button type="button" class="btn btn-danger btn-block" (click)="Delete(n)">          <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+  </div>
+</div>
+</li>
+
+</ul>
+
+</form>
+</div>
+</div>
+  <div class="col-sm-2">
+    <div class="card shadow-sm p-3 mb-5 bg-white rounded">
+      <div class="card-body">
+        <h5 class="card-title">הוספת סוג הוצאה </h5>
+        <form (ngSubmit)="onSubmitFormFrequencyObject()" #signupFormtype="ngForm" dir="rtl">
+          <div class="form-group">
+            <label for="FrequencyObject">סוג הוצאה </label>
+            <input [(ngModel)]="FrequencyObject.FrequencyObjects" name="FrequencyObject" type="text"
+              class="form-control" id="FrequencyObject" aria-describedby="FrequencyObject" required>
+          </div>
+<button mat-stroked-button color="accent"  type="submit" >הוספה</button>
+        </form>
+      </div>
+
+    </div>
+    <ul class="list-group list-group-flush" *ngFor="let s of FrequencyObjectList" name="divS">
+      <li class="list-group-item">
+        <div class="container">
+          <div class="row">
+      <li class="col card-title">
+        <span>{{s.FrequencyObjects}}</span>
+      </li>
+      <div class="col">
+        <!-- <button type="button" class="btn btn-danger btn-block" (click)="DeleteFrequencyObject(s)">מחק</button> -->
+
+      </div>
+  </div>
+</div>
+</li>
+</ul>
+</div>
+<div class="col-sm-2" *ngIf="ExpensesList.length > 0">
+  <div class="card shadow-sm p-3 mb-5 bg-white rounded">
+      <div class="card-body">
+          <div style="display: flex;
+          justify-content: space-evenly;">
+              <button mat-stroked-button color="accent">
+                  Dounload
+                  <mat-icon>get_app</mat-icon>
+              </button>
+          </div>
+          <br>
+          <button *ngIf="ExpensesList.length > 0" class="btn btn-warning btn-block" (click)="print()">
+              <mat-icon> local_printshop</mat-icon>
+          </button>
+          <br>
+                    <button *ngIf="ExpensesList.length > 0" class="btn btn-success btn-block" (click)="creatExceldictionary()"><mat-icon>file_copy</mat-icon>Excel</button>
+
+          <br>  <button *ngIf="ExpensesList.length > 0" class="btn btn-warning btn-block" (click)="createPdfdictionary()">
+              <mat-icon>picture_as_pdf</mat-icon>
+          </button>
+      </div>
+  </div>
+</div>
+</div>

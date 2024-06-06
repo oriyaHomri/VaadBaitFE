@@ -1,0 +1,109 @@
+<div class="text-right" style="margin-top: 3%;
+display: flex;
+justify-content: center;    margin-bottom: 3%;">
+    <div class="col-sm">
+        <div class="card shadow-sm p-3 mb-5 bg-white rounded">
+            <div class="card-body">
+                <h5 class="card-title"> דיוח על תקלה</h5>
+                <form (ngSubmit)="onSubmitForm()" #signupForm="ngForm" dir="rtl">
+                    <div class="form-group">
+                        <label for="date">תאריך תקלה </label>
+                        <input [(ngModel)]="Frequencies.StartDate" name="name" type="date" class="form-control"
+                            id="date" aria-describedby="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="details">פירוט על תקלה</label>
+                        <textarea [(ngModel)]="Frequencies.Details" name="name" class="form-control" id="details"
+                            aria-describedby="details" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="TypeOfTask">סוג תקלה</label>
+                        <select class="custom-select" id="typeTasks" [(ngModel)]="Frequencies.FrequencyType1" required
+                            [ngModelOptions]="{standalone: true}">
+                            <option></option>
+                            <option *ngFor="let t of TypeOfTasksList" [ngValue]="t.IdTypeOfTasks">
+                                {{t.TypeOfTask}}
+                            </option>
+                        </select>
+                    </div>
+                    <button mat-stroked-button color="accent" type="submit">הוספה</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <span></span>
+    <div class="col-sm-5">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-primary" *ngIf="FrequenciesList.length == 0" role="status"
+                style="width: 10rem; height: 10rem;">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <div class="alert alert-info" *ngIf="bool">
+            נא למלא פרטים לעדכון!
+            <strong></strong>
+        </div>
+        <div class="card shadow-sm p-3 mb-5 bg-white rounded" *ngIf="FrequenciesList.length > 0">
+            <form>
+                <div class="card-header">
+                    <h2 dir="rtl" class="text-center">תצוגת תקלות שעוד לא טופלו</h2>
+                </div>
+                <br>
+                <ul class="list-group list-group-flush" *ngFor="let n of FrequenciesList" name="divS">
+                    <li class="list-group-item" *ngIf="n.Fixed1==false">
+                        <div class="container">
+                            <div class="row">
+                    <li class="col card-title" *ngIf="n.Fixed1==false">
+                        <app-show-Frequencies [Frequencies]="n"></app-show-Frequencies>
+                    </li>
+                    <div class="col" *ngIf="n.Fixed1==false">
+                        <button mat-button color="primary" (click)="openURL()" style="background-color: rgba(255, 99, 132,1);
+                        color: white;">לעדכון תיקון</button>
+                    </div>
+        </div>
+    </div>
+    </li>
+
+    </ul>
+    </form>
+</div>
+</div>
+<div class="text-right">
+    <div class="col-sm">
+        <div class="card shadow-sm p-3 mb-5 bg-white rounded">
+            <div class="card-body">
+                <h5 class="card-title">הוספת סוג תקלה </h5>
+                <form (ngSubmit)="onSubmitFormTypeOfTasks()" #signupFormtype="ngForm" dir="rtl">
+                    <div class="form-group">
+                        <label for="Type">סוג תקלה </label>
+                        <input [(ngModel)]="TypeOfTasks.TypeOfTask" name="Type" type="text" class="form-control"
+                            id="Type" aria-describedby="Type" required>
+                    </div>
+                    <button mat-stroked-button color="accent" type="submit">הוספה</button>
+                </form>
+            </div>
+
+        </div>
+        <mat-list-item *ngFor="let s of TypeOfTasksList" name="div">
+            <!-- <li class="list-group-item"> -->
+            <!-- <div class="container"> -->
+            <!-- <div class="row"> -->
+            <!-- <li class="col card-title"> -->
+            <div mat-line style="display:flex">
+                <mat-icon mat-list-icon></mat-icon>
+                <span>{{s.TypeOfTask}}</span>
+                <br>
+                <!-- </li> -->
+                <!-- <div class="col">
+                <button type="button" class="btn btn-danger btn-block" (click)="DeleteTypeOfTasks(s)">מחק</button>
+
+            </div> -->
+            </div>
+        </mat-list-item>
+        <!-- </div> -->
+    </div>
+    <!-- </li> -->
+    <!-- </ul> -->
+</div>
+</div>

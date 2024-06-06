@@ -1,0 +1,10 @@
+ <div class="border" >
+      <b>  
+  התקלה :</b> {{tasks.Description}}
+  <br><b>שארעה בתאריך : </b>{{tasks.Date1 |  date:'shortDate' }}<br>
+ <b>תוקנה בתאריך :</b>{{tasks.FixeDate |  date:'shortDate'}}
+ <br>
+  <b> ע"י :</b>{{tasks.FixedBy.LastName}} {{tasks.FixedBy.FirstName}}
+     <br>
+ <b>עלות תיקון :</b>{{tasks.IdExpense.Amount}}
+  </div>

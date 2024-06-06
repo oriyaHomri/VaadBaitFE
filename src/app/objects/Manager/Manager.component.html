@@ -1,0 +1,46 @@
+<mat-tab-group class="authContainer">
+    <mat-tab label="הכנסות" dynamicWidth>
+        <div style="margin-top: 3%;display: flex;justify-content: center;  margin-bottom: 3%;">
+            <chart type="pie" [data]="data_c" [options]="options" style="width: 500px;height: 500px;">
+            </chart>
+        </div>
+        <div style="display: flex;flex-direction: column;align-items: center">
+            <p style="color: rgba(255, 99, 132,1); font-size: 200%;"><b> סך כל ההכנסות של הבנין:{{allIn}} </b>
+            </p>
+            <br>
+            <button mat-raised-button color="primary" style="background-color: rgba(255, 99, 132,1);"
+                routerLink="/Insertions">הכנסות</button>
+        </div>
+    </mat-tab>
+    <mat-tab label="הוצאות">
+        <app-ManageInt></app-ManageInt>
+    </mat-tab>
+    <mat-tab label='סה"כ'>
+        <div style="display: flex;">
+            <div class="col-sm-6">
+                <!-- <div class=""> -->
+                <div class="p-3 mb-5">
+                    <button mat-raised-button color="primary"
+                        style="background-color: rgba(255, 99, 132,1);margin: 5% 30%;">סיכום מצב הוצאות מול
+                        הכנסות</button>
+                    <div class="text-center">
+                        <p class="btn1"><b> סך כל ההכנסות של הבנין : {{allIn}} </b></p>
+                    </div>
+                    <br>
+                    <div class="text-center">
+                        <p class="btn1"><b> סך כל ההוצאות של הבנין : {{all}} </b></p>
+                    </div>
+                    <br>
+                    <div class="text-center">
+                        <p class="btn1"><b> סך הכל בקופת הבנין : {{allIn-all}} </b></p>
+                    </div>
+                </div>
+                <!-- </div> -->
+            </div>
+            <div class="col-sm-6">
+                <chart [type]="type" [data]="data_cart" [options]="options" style="width: 100%;height: 100%;"></chart>
+            </div>
+        </div>
+    </mat-tab>
+</mat-tab-group>
+<!-- </div> -->

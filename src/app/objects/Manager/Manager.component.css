@@ -1,0 +1,27 @@
+.authContainer {
+  height: 100%;
+}
+
+.mat-tab-body {
+  /* Removing the scrollbar from the Tabs card */
+  overflow-y: hidden !important;
+
+}
+
+.mat-tab-body-content {
+  width: 100%;
+  overflow: hidden !important
+}
+
+.btn1 {
+  color: rgba(255, 99, 132, 1);
+  font-size: 180%;
+  line-height: 1;
+}
+
+.btn2 {
+  color: white;
+  font-size: 200%;
+  line-height: 4;
+  
+}
